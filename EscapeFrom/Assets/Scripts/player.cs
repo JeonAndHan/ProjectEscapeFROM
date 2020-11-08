@@ -24,19 +24,31 @@ public class player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.Space))
+        m_dir = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
+        m_rigidbody.MovePosition(transform.position + m_dir * m_speed * Time.fixedDeltaTime);
+
+        if (Input.GetKeyDown(KeyCode.LeftControl))
         {
-            m_Anim.SetTrigger("ATTACK");
+            m_Anim.SetBool("ATTACK", true);
         }
         else
         {
-            m_Anim.SetTrigger("IDLE");
+            m_Anim.SetBool("ATTACK", false);
+        }
+
+        //else if (Input.GetKey(KeyCode.Space))
+        //{
+        //    m_Anim.SetTrigger("JUMP");
+        //}
+
+        if(m_dir != Vector3.zero)
+        {
+            m_Anim.SetBool("WALK", true);
+        }
+        else
+        {
+            m_Anim.SetBool("WALK", false);
         }
     }
 
-    private void FixedUpdate()
-    {
-        m_dir = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
-        m_rigidbody.MovePosition(transform.position + m_dir * m_speed * Time.fixedDeltaTime);
-    }
 }
