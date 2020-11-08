@@ -27,7 +27,7 @@ public class player : MonoBehaviour
         m_dir = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
         m_rigidbody.MovePosition(transform.position + m_dir * m_speed * Time.fixedDeltaTime);
 
-        if (Input.GetKeyDown(KeyCode.LeftControl))
+        if (Input.GetMouseButton(0))
         {
             m_Anim.SetBool("ATTACK", true);
         }
@@ -44,11 +44,25 @@ public class player : MonoBehaviour
         if(m_dir != Vector3.zero)
         {
             m_Anim.SetBool("WALK", true);
+            if(m_dir.x > 0)
+            {
+                this.transform.eulerAngles = new Vector3(0, 90, 0);
+            }
+            else if(m_dir.x < 0)
+            {
+                this.transform.eulerAngles = new Vector3(0, -90, 0);
+            }
+            else
+            {
+                this.transform.eulerAngles = new Vector3(0, 0, 0);
+            }
         }
         else
         {
             m_Anim.SetBool("WALK", false);
         }
+
+
     }
 
 }

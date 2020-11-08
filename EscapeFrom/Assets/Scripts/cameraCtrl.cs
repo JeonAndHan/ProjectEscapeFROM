@@ -14,7 +14,7 @@ public class cameraCtrl : MonoBehaviour
     [Range(0f, 180f)]
     float m_angle;
     [SerializeField]
-    [Range(0.2f, 10f)]
+    [Range(0.2f, 20f)]
     float m_speed;
     [SerializeField]
     Transform m_target;
