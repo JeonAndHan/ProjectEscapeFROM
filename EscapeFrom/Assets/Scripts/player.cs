@@ -13,6 +13,8 @@ public class player : MonoBehaviour
     CapsuleCollider m_collider;
     Animator m_Anim;
 
+    private int m_JumpCount = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -36,12 +38,49 @@ public class player : MonoBehaviour
             m_Anim.SetBool("ATTACK", false);
         }
 
+        if (Input.GetKey(KeyCode.Z))
+        {
+            m_Anim.SetBool("PICKUP", true);
+        }
+        else
+        {
+            m_Anim.SetBool("PICKUP", false);
+        }
+
+        if(m_JumpCount < 1 && Input.GetButtonDown("Jump"))
+        {
+            m_rigidbody.velocity = new Vector3(m_rigidbody.velocity.x, 6, m_rigidbody.velocity.z);
+            m_JumpCount++;
+        }
+        m_Anim.SetFloat("JUMP", m_rigidbody.velocity.y);
+
+        ///////////HP =0 -> Death로 수정
+        //if (Input.GetKey(KeyCode.D))
+        //{
+        //    m_Anim.SetBool("DEATH", true);
+        //}
+        //else
+        //{
+        //    m_Anim.SetBool("DEATH", false);
+        //}
+
+
+        /////////////쳐맞으면 HIT 모션 취하는걸로 수정
+        //if (Input.GetKey(KeyCode.X))
+        //{
+        //    m_Anim.SetBool("HIT", true);
+        //}
+        //else
+        //{
+        //    m_Anim.SetBool("HIT", false);
+        //}
+
         //else if (Input.GetKey(KeyCode.Space))
         //{
         //    m_Anim.SetTrigger("JUMP");
         //}
 
-        if(m_dir != Vector3.zero)
+        if (m_dir != Vector3.zero)
         {
             m_Anim.SetBool("WALK", true);
             if(m_dir.x > 0)
@@ -62,7 +101,14 @@ public class player : MonoBehaviour
             m_Anim.SetBool("WALK", false);
         }
 
+    }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            m_JumpCount = 0;
+        }
     }
 
 }
