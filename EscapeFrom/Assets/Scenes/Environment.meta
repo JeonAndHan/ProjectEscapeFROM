@@ -1,6 +1,12 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:EscapeFrom/Assets/Temp/BlackantMasterStudio/The Shed/The shed.unity.meta
+guid: 4383ffec4ce614ea0862903e975124f9
+timeCreated: 1463415370
+licenseType: Store
+=======
 guid: f8262ca9a499ceb46af1cbe819814825
 folderAsset: yes
+>>>>>>> aafa3b8b5d8f216bcccbe9d6459fe2c61fedd8d0:EscapeFrom/Assets/Scenes/Environment.meta
 DefaultImporter:
   externalObjects: {}
   userData: 
