@@ -18,7 +18,7 @@ public class player : MonoBehaviour
 
     private int m_JumpCount = 0;
     private float m_lookSensitivity = 3f;
-    private float m_cameraRotationLimit = 50f;
+    private float m_cameraRotationLimit = 30f;
     private float m_currentCameraRotationX;
 
     // Start is called before the first frame update
