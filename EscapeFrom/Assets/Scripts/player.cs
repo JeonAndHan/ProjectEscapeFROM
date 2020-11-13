@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Net.Http.Headers;
 using UnityEngine;
 
 public class player : MonoBehaviour
@@ -8,12 +9,17 @@ public class player : MonoBehaviour
     float m_speed;
     [SerializeField]
     Vector3 m_dir;
+    public Camera m_camera;
+    public Transform m_cameraArm;
 
     Rigidbody m_rigidbody;
     CapsuleCollider m_collider;
     Animator m_Anim;
 
     private int m_JumpCount = 0;
+    private float m_lookSensitivity = 3f;
+    private float m_cameraRotationLimit = 50f;
+    private float m_currentCameraRotationX;
 
     // Start is called before the first frame update
     void Start()
@@ -26,8 +32,9 @@ public class player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        m_dir = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
-        m_rigidbody.MovePosition(transform.position + m_dir * m_speed * Time.fixedDeltaTime);
+        character_Rotation();
+        camera_Rotation();
+        Move();
 
         if (Input.GetMouseButton(0))
         {
@@ -80,27 +87,50 @@ public class player : MonoBehaviour
         //    m_Anim.SetTrigger("JUMP");
         //}
 
-        if (m_dir != Vector3.zero)
-        {
-            m_Anim.SetBool("WALK", true);
-            if(m_dir.x > 0)
-            {
-                this.transform.eulerAngles = new Vector3(0, 90, 0);
-            }
-            else if(m_dir.x < 0)
-            {
-                this.transform.eulerAngles = new Vector3(0, -90, 0);
-            }
-            else
-            {
-                this.transform.eulerAngles = new Vector3(0, 0, 0);
-            }
-        }
-        else
-        {
-            m_Anim.SetBool("WALK", false);
-        }
+        //if (m_dir != Vector3.zero)
+        //{
+        //    m_Anim.SetBool("WALK", true);
+        //  //  m_Anim.transform.forward = m_dir;
+        //}                             
+        //else
+        //{
+        //    m_Anim.SetBool("WALK", false);
+        //}
 
+    }
+
+    void character_Rotation()
+    {
+        float YRotation = Input.GetAxisRaw("Mouse X");
+        Vector3 charRotationY = new Vector3(0, YRotation, 0) * m_lookSensitivity;
+        m_rigidbody.MoveRotation(m_rigidbody.rotation * Quaternion.Euler(charRotationY));
+    }
+
+    void camera_Rotation()
+    {
+        float XRotation = Input.GetAxisRaw("Mouse Y");
+        float cameraRotationX = XRotation * m_lookSensitivity;
+        m_currentCameraRotationX -= cameraRotationX;
+        m_currentCameraRotationX = Mathf.Clamp(m_currentCameraRotationX, -m_cameraRotationLimit, m_cameraRotationLimit);
+
+        m_camera.transform.localEulerAngles = new Vector3(m_currentCameraRotationX, 0, 0);
+    }
+
+    private void Move()
+    {
+        Vector2 moveInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        bool isMove = moveInput.magnitude != 0;
+        m_Anim.SetBool("WALK", isMove);
+
+        if (isMove)
+        {
+            Vector3 lookForward = new Vector3(m_cameraArm.forward.x, 0f, m_cameraArm.forward.z).normalized;
+            Vector3 lookRight = new Vector3(m_cameraArm.right.x, 0f, m_cameraArm.right.z).normalized;
+            Vector3 moveDir = lookForward * moveInput.y + lookRight * moveInput.x;
+
+            this.transform.forward = lookForward;
+            transform.position += moveDir * Time.deltaTime * m_speed;
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
