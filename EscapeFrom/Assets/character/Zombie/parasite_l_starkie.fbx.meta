@@ -11,22 +11,22 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: parasitezombie_Material
-    second: {fileID: 2100000, guid: fe69055cec999cf4a890d1a5044e9026, type: 2}
+    second: {fileID: 2100000, guid: 9e5324a46c553a943a90084acd75c57d, type: 2}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: parasiteZombie_diffuse
-    second: {fileID: 2800000, guid: 2398162cd33c7174eb8fcb2a84c70b29, type: 3}
+    second: {fileID: 2800000, guid: da1c1e4d79fb74e4fb94526c6ee3bb62, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: parasiteZombie_normal
-    second: {fileID: 2800000, guid: bf5680d2ca511a349ad515ca52b46719, type: 3}
+    second: {fileID: 2800000, guid: 7d8f4306f3176be49a0476b483961be5, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: parasiteZombie_specular
-    second: {fileID: 2800000, guid: 8190ecff0c21fda478e4b5f656a69863, type: 3}
+    second: {fileID: 2800000, guid: e2015b1e6ae785143af81bc3afee3cb2, type: 3}
   materials:
     materialImportMode: 1
     materialName: 0
