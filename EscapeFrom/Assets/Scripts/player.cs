@@ -18,7 +18,7 @@ public class player : MonoBehaviour
 
     private int m_JumpCount = 0;
     private float m_lookSensitivity = 3f;
-    private float m_cameraRotationLimit = 30f;
+    private float m_cameraRotationLimit = 20f;
     private float m_currentCameraRotationX;
 
     // Start is called before the first frame update
@@ -56,7 +56,7 @@ public class player : MonoBehaviour
 
         if(m_JumpCount < 1 && Input.GetButtonDown("Jump"))
         {
-            m_rigidbody.velocity = new Vector3(m_rigidbody.velocity.x, 6, m_rigidbody.velocity.z);
+            m_rigidbody.velocity = new Vector3(m_rigidbody.velocity.x, 5, m_rigidbody.velocity.z);
             m_JumpCount++;
         }
         m_Anim.SetFloat("JUMP", m_rigidbody.velocity.y);
