@@ -8,6 +8,8 @@ public class player : MonoBehaviour
     [SerializeField]
     float m_speed;
     [SerializeField]
+    float m_runSpeed;
+    [SerializeField]
     Vector3 m_dir;
     public Camera m_camera;
     public Transform m_cameraArm;
@@ -20,6 +22,7 @@ public class player : MonoBehaviour
     private float m_lookSensitivity = 3f;
     private float m_cameraRotationLimit = 20f;
     private float m_currentCameraRotationX;
+    private bool m_isRun = false;
 
     // Start is called before the first frame update
     void Start()
@@ -60,6 +63,18 @@ public class player : MonoBehaviour
             m_JumpCount++;
         }
         m_Anim.SetFloat("JUMP", m_rigidbody.velocity.y);
+
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            m_isRun = true;
+        }
+
+        if (Input.GetKeyUp(KeyCode.LeftShift))
+        {
+            m_isRun = false;
+        }
+
+
 
         ///////////HP =0 -> Death로 수정
         //if (Input.GetKey(KeyCode.D))
@@ -128,8 +143,18 @@ public class player : MonoBehaviour
             Vector3 lookRight = new Vector3(m_cameraArm.right.x, 0f, m_cameraArm.right.z).normalized;
             Vector3 moveDir = lookForward * moveInput.y + lookRight * moveInput.x;
 
-            this.transform.forward = lookForward;
-            transform.position += moveDir * Time.deltaTime * m_speed;
+            this.transform.forward = lookForward;           
+
+            if (m_isRun)  //left shift가 눌렸다면
+            {
+                m_Anim.SetBool("RUN", true);
+                transform.position += moveDir * Time.deltaTime * m_runSpeed;
+            }
+            else
+            {
+                m_Anim.SetBool("RUN", false);
+                transform.position += moveDir * Time.deltaTime * m_speed;
+            }
         }
     }
 
