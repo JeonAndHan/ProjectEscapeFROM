@@ -8,9 +8,11 @@ public class player : MonoBehaviour
     [SerializeField]
     float m_speed;
     [SerializeField]
-    float m_runSpeed;
+    float m_runSpeed;                    
     [SerializeField]
     Vector3 m_dir;
+    //[SerializeField]
+    //GameObject m_attackArea;
     public Camera m_camera;
     public Transform m_cameraArm;
 
@@ -22,7 +24,7 @@ public class player : MonoBehaviour
     private float m_lookSensitivity = 3f;
     private float m_cameraRotationLimit = 20f;
     private float m_currentCameraRotationX;
-    private bool m_isRun = false;
+    private bool m_isRun;
 
     // Start is called before the first frame update
     void Start()
@@ -42,10 +44,13 @@ public class player : MonoBehaviour
         if (Input.GetMouseButton(0))
         {
             m_Anim.SetBool("ATTACK", true);
+           // m_attackArea.SetActive(true);
+            
         }
         else
         {
             m_Anim.SetBool("ATTACK", false);
+          //  m_attackArea.SetActive(false);
         }
 
         if (Input.GetKey(KeyCode.Z))
@@ -73,7 +78,6 @@ public class player : MonoBehaviour
         {
             m_isRun = false;
         }
-
 
 
         ///////////HP =0 -> Death로 수정
@@ -143,17 +147,17 @@ public class player : MonoBehaviour
             Vector3 lookRight = new Vector3(m_cameraArm.right.x, 0f, m_cameraArm.right.z).normalized;
             Vector3 moveDir = lookForward * moveInput.y + lookRight * moveInput.x;
 
-            this.transform.forward = lookForward;           
+            this.transform.forward = lookForward;
 
-            if (m_isRun)  //left shift가 눌렸다면
-            {
-                m_Anim.SetBool("RUN", true);
-                transform.position += moveDir * Time.deltaTime * m_runSpeed;
-            }
-            else
+            if (!m_isRun)
             {
                 m_Anim.SetBool("RUN", false);
                 transform.position += moveDir * Time.deltaTime * m_speed;
+            }
+            else
+            {
+                m_Anim.SetBool("RUN", true);
+                transform.position += moveDir * Time.deltaTime * m_runSpeed;
             }
         }
     }

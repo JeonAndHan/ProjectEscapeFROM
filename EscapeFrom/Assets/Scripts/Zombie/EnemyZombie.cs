@@ -11,11 +11,11 @@ public class EnemyZombie : EnemyMelee
     void Start()
     {
         base.Start();
-        attackCoolTime = 3f;
+        attackCoolTime = 2f;
         attackCoolTimeCacl = attackCoolTime;
 
-        attackRange = 3f;
-        m_nav.stoppingDistance = 2f;
+        attackRange = 2.5f;
+        m_nav.stoppingDistance = 1f;
         StartCoroutine(ResetAttackArea());
     }
 
