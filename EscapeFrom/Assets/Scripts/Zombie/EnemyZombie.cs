@@ -6,6 +6,8 @@ public class EnemyZombie : EnemyMelee
 {
     public GameObject meleeAttackArea;
 
+    private float m_hp;
+    private float m_currenthp;
 
     // Start is called before the first frame update
     void Start()
@@ -17,6 +19,8 @@ public class EnemyZombie : EnemyMelee
         attackRange = 2.5f;
         m_nav.stoppingDistance = 1f;
         StartCoroutine(ResetAttackArea());
+
+        m_currenthp = m_hp;
     }
 
     IEnumerator ResetAttackArea()
