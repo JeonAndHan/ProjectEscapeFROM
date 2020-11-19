@@ -26,12 +26,17 @@ public class player : MonoBehaviour
     private float m_currentCameraRotationX;
     private bool m_isRun;
 
+    private float m_hp;
+    private float m_currenthp;
+
     // Start is called before the first frame update
     void Start()
     {
         m_rigidbody = GetComponent<Rigidbody>();
         m_collider = GetComponent<CapsuleCollider>();
         m_Anim = GetComponent<Animator>();
+        m_currenthp = m_hp;
+        IngameController.Instance.ShowPlayerHP(m_currenthp, m_hp);
     }
 
     // Update is called once per frame
