@@ -22,6 +22,7 @@ public class TextTrigger : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            Debug.Log("player enter");
             m_textTrigger = true;
         }
     }
