@@ -8,6 +8,11 @@ TagManager:
   - AttackArea
   - Enemy
   - PlayerAttackArea
+  - SafeTrigger
+  - Room1BoardTrigger
+  - DeskTrigger
+  - ComputerTrigger
+  - Room2BoardTrigger
   layers:
   - Default
   - TransparentFX
