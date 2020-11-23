@@ -11,6 +11,8 @@ public class EnemyMelee : Enemy
         ATTACK,
     };
 
+    public ZombieTrigger m_zombieTrigger;
+
     public State currentState = State.IDLE;
     WaitForSeconds Delay500 = new WaitForSeconds(0.5f);
     WaitForSeconds Delay250 = new WaitForSeconds(0.25f);
@@ -26,7 +28,10 @@ public class EnemyMelee : Enemy
     {
         yield return null;
         //player가 방을 벗어나지 않았다면 idle 상태로 대기
-        // while()
+        while (!m_zombieTrigger.m_Trigger)
+        {
+            yield return Delay500;
+        }
 
         while (true)
         {

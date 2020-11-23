@@ -35,8 +35,9 @@ public class player : MonoBehaviour
         m_rigidbody = GetComponent<Rigidbody>();
         m_collider = GetComponent<CapsuleCollider>();
         m_Anim = GetComponent<Animator>();
+
         m_currenthp = m_hp;
-        IngameController.Instance.ShowPlayerHP(m_currenthp, m_hp);
+        //IngameController.Instance.ShowPlayerHP(m_currenthp, m_hp);
     }
 
     // Update is called once per frame
@@ -100,6 +101,14 @@ public class player : MonoBehaviour
         //if (Input.GetKey(KeyCode.X))
         //{
         //    m_Anim.SetBool("HIT", true);
+              //if(큰좀비)
+                //m_currenthp -= 20;
+              //else(작은좀비)
+                //m_currenthp -= 10;
+              //IngameController.Instance.ShowPlayerHP(m_currenthp, m_hp);
+              //if(m_currenthp<=0)
+                //m_Anim.SetBool("DEATH", true);
+ 
         //}
         //else
         //{
