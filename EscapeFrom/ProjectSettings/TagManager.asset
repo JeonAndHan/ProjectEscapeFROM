@@ -13,6 +13,7 @@ TagManager:
   - DeskTrigger
   - ComputerTrigger
   - Room2BoardTrigger
+  - hpBar
   layers:
   - Default
   - TransparentFX

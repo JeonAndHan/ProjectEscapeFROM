@@ -26,8 +26,9 @@ public class player : MonoBehaviour
     private float m_currentCameraRotationX;
     private bool m_isRun;
 
-    private float m_hp;
-    private float m_currenthp;
+    private float m_maxHP;
+    private float m_currentHP;
+    public GameObject hpBar;
 
     // Start is called before the first frame update
     void Start()
@@ -36,8 +37,8 @@ public class player : MonoBehaviour
         m_collider = GetComponent<CapsuleCollider>();
         m_Anim = GetComponent<Animator>();
 
-        m_currenthp = m_hp;
-        //IngameController.Instance.ShowPlayerHP(m_currenthp, m_hp);
+        m_currentHP = m_maxHP;
+        hpBar.Find("hpBar").GetComponent<HealthBar>.ShowHPbar(m_currenthp, m_hp);
     }
 
     // Update is called once per frame
@@ -46,6 +47,7 @@ public class player : MonoBehaviour
         character_Rotation();
         camera_Rotation();
         Move();
+        hpBar.Find("hpBar").GetComponent<HealthBar>.ShowHPbar(m_currenthp, m_hp);
 
         if (Input.GetMouseButton(0))
         {
@@ -105,7 +107,6 @@ public class player : MonoBehaviour
                 //m_currenthp -= 20;
               //else(작은좀비)
                 //m_currenthp -= 10;
-              //IngameController.Instance.ShowPlayerHP(m_currenthp, m_hp);
               //if(m_currenthp<=0)
                 //m_Anim.SetBool("DEATH", true);
  

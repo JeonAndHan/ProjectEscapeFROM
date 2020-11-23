@@ -15695,7 +15695,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0
-  m_FillAmount: 0.85
+  m_FillAmount: 0.33
   m_FillClockwise: 1
   m_FillOrigin: 1
   m_UseSpriteMesh: 0
@@ -16907,12 +16907,12 @@ GameObject:
   - component: {fileID: 2011633285}
   - component: {fileID: 2011633286}
   m_Layer: 5
-  m_Name: Health bar
-  m_TagString: Untagged
+  m_Name: HealthBar
+  m_TagString: hpBar
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2011633285
 RectTransform:
   m_ObjectHideFlags: 0
