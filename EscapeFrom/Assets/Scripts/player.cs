@@ -38,7 +38,7 @@ public class player : MonoBehaviour
         m_Anim = GetComponent<Animator>();
 
         m_currentHP = m_maxHP;
-        hpBar.Find("hpBar").GetComponent<HealthBar>.ShowHPbar(m_currenthp, m_hp);
+        GameObject.FindWithTag("hpBar").GetComponent<HealthBar>.ShowHPbar(m_currentHP, m_maxHP);
     }
 
     // Update is called once per frame
@@ -47,7 +47,7 @@ public class player : MonoBehaviour
         character_Rotation();
         camera_Rotation();
         Move();
-        hpBar.Find("hpBar").GetComponent<HealthBar>.ShowHPbar(m_currenthp, m_hp);
+        GameObject.FindWithTag("hpBar").GetComponent<HealthBar>.ShowHPbar(m_currentHP, m_maxHP);
 
         if (Input.GetMouseButton(0))
         {
