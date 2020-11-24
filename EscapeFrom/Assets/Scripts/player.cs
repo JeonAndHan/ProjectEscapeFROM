@@ -15,6 +15,7 @@ public class player : MonoBehaviour
     //GameObject m_attackArea;
     public Camera m_camera;
     public Transform m_cameraArm;
+    public GameCtrl m_gameCtrl;
 
     Rigidbody m_rigidbody;
     CapsuleCollider m_collider;
@@ -46,10 +47,14 @@ public class player : MonoBehaviour
     {
         character_Rotation();
         camera_Rotation();
-        Move();
+        if (!m_gameCtrl.m_pressR)
+        {
+            Move();
+        }
+        
         //GameObject.FindWithTag("hpBar").GetComponent<HealthBar>.ShowHPbar(m_currentHP, m_maxHP);
 
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0) && !m_gameCtrl.m_pressR)
         {
             m_Anim.SetBool("ATTACK", true);
            // m_attackArea.SetActive(true);
@@ -61,7 +66,7 @@ public class player : MonoBehaviour
           //  m_attackArea.SetActive(false);
         }
 
-        if (Input.GetKey(KeyCode.Z))
+        if (Input.GetKey(KeyCode.Z) && !m_gameCtrl.m_pressR)
         {
             m_Anim.SetBool("PICKUP", true);
         }
@@ -70,7 +75,7 @@ public class player : MonoBehaviour
             m_Anim.SetBool("PICKUP", false);
         }
 
-        if(m_JumpCount < 1 && Input.GetButtonDown("Jump"))
+        if(m_JumpCount < 1 && Input.GetButtonDown("Jump") && !m_gameCtrl.m_pressR)
         {
             m_rigidbody.velocity = new Vector3(m_rigidbody.velocity.x, 5, m_rigidbody.velocity.z);
             m_JumpCount++;
