@@ -5,30 +5,41 @@ using UnityEngine;
 
 public class player : MonoBehaviour
 {
+    [Header("player변수")]
     [SerializeField]
     float m_speed;
     [SerializeField]
     float m_runSpeed;                    
     [SerializeField]
     Vector3 m_dir;
-    //[SerializeField]
-    //GameObject m_attackArea;
-    public Camera m_camera;
-    public Transform m_cameraArm;
-
+    
     Rigidbody m_rigidbody;
     CapsuleCollider m_collider;
     Animator m_Anim;
+    [SerializeField]
+    GameObject m_handAttackArea;
+    [SerializeField]
+    GameObject m_weaponAttackArea;
+
+    public GameObject m_player_weapon;
 
     private int m_JumpCount = 0;
+    private bool m_isRun;
+    private float m_weapon_Damage = 50f;
+    private float m_hand_Damage = 20f;
+
+    [Header("camera변수")]
+    public Camera m_camera;
+    public Transform m_cameraArm;
+    public GameCtrl m_gameCtrl;
     private float m_lookSensitivity = 3f;
     private float m_cameraRotationLimit = 20f;
     private float m_currentCameraRotationX;
-    private bool m_isRun;
 
+    [Header("playerHP변수")]
+    [SerializeField]
     private float m_maxHP;
     private float m_currentHP;
-    public GameObject hpBar;
 
     // Start is called before the first frame update
     void Start()
@@ -38,30 +49,75 @@ public class player : MonoBehaviour
         m_Anim = GetComponent<Animator>();
 
         m_currentHP = m_maxHP;
-        //GameObject.FindWithTag("hpBar").GetComponent<HealthBar>.ShowHPbar(m_currentHP, m_maxHP);
+        UICtrl.Instance.showHp(m_currentHP, m_maxHP);
+    }
+
+    public void Hit(float damage)
+    {
+        m_currentHP -= damage;
+        UICtrl.Instance.showHp(m_currentHP, m_maxHP);
+        if(m_currentHP <= 0)
+        {
+            m_Anim.SetBool("DEATH", true);
+        }
+    }
+
+    public void attackTarget(GameObject target)
+    {
+            if (m_player_weapon.activeInHierarchy) //player가 무기를 들고있다면
+            {
+                target.SendMessage("Hit", 50);
+            }
+            else //player가 맨손이라면
+            {
+                target.SendMessage("Hit", 20);
+            }
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        character_Rotation();
-        camera_Rotation();
-        Move();
+      
+        if (!m_gameCtrl.m_pressR)
+        {
+            character_Rotation();
+            camera_Rotation();
+            Move();
+        }
+        
         //GameObject.FindWithTag("hpBar").GetComponent<HealthBar>.ShowHPbar(m_currentHP, m_maxHP);
 
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0) && !m_gameCtrl.m_pressR)
         {
-            m_Anim.SetBool("ATTACK", true);
-           // m_attackArea.SetActive(true);
-            
+            if (m_player_weapon.activeInHierarchy)
+            {
+                m_Anim.SetBool("WEAPONATTACK", true);
+               // m_weaponAttackArea.SetActive(true);
+            }
+            else
+            {
+                m_Anim.SetBool("ATTACK", true);
+               // m_handAttackArea.SetActive(true);
+            }                   
+           
         }
         else
         {
-            m_Anim.SetBool("ATTACK", false);
-          //  m_attackArea.SetActive(false);
+            if (m_player_weapon.activeInHierarchy)
+            {
+                m_Anim.SetBool("WEAPONATTACK", false);
+               // m_weaponAttackArea.SetActive(false);
+            }
+            else
+            {
+                m_Anim.SetBool("ATTACK", false);
+                //m_handAttackArea.SetActive(false);
+            }
+            
         }
 
-        if (Input.GetKey(KeyCode.Z))
+        if (Input.GetKey(KeyCode.Z) && !m_gameCtrl.m_pressR)
         {
             m_Anim.SetBool("PICKUP", true);
         }
@@ -70,7 +126,7 @@ public class player : MonoBehaviour
             m_Anim.SetBool("PICKUP", false);
         }
 
-        if(m_JumpCount < 1 && Input.GetButtonDown("Jump"))
+        if(m_JumpCount < 1 && Input.GetButtonDown("Jump") && !m_gameCtrl.m_pressR)
         {
             m_rigidbody.velocity = new Vector3(m_rigidbody.velocity.x, 5, m_rigidbody.velocity.z);
             m_JumpCount++;
@@ -87,50 +143,30 @@ public class player : MonoBehaviour
             m_isRun = false;
         }
 
+    }
 
-        ///////////HP =0 -> Death로 수정
-        //if (Input.GetKey(KeyCode.D))
-        //{
-        //    m_Anim.SetBool("DEATH", true);
-        //}
-        //else
-        //{
-        //    m_Anim.SetBool("DEATH", false);
-        //}
+    public void AttackAreaTrue()
+    {
+        if (m_player_weapon.activeInHierarchy)
+        {
+            m_weaponAttackArea.SetActive(true);
+        }
+        else
+        {
+            m_handAttackArea.SetActive(true);
+        }
+    }
 
-
-        /////////////쳐맞으면 HIT 모션 취하는걸로 수정
-        //if (Input.GetKey(KeyCode.X))
-        //{
-        //    m_Anim.SetBool("HIT", true);
-              //if(큰좀비)
-                //m_currenthp -= 20;
-              //else(작은좀비)
-                //m_currenthp -= 10;
-              //if(m_currenthp<=0)
-                //m_Anim.SetBool("DEATH", true);
- 
-        //}
-        //else
-        //{
-        //    m_Anim.SetBool("HIT", false);
-        //}
-
-        //else if (Input.GetKey(KeyCode.Space))
-        //{
-        //    m_Anim.SetTrigger("JUMP");
-        //}
-
-        //if (m_dir != Vector3.zero)
-        //{
-        //    m_Anim.SetBool("WALK", true);
-        //  //  m_Anim.transform.forward = m_dir;
-        //}                             
-        //else
-        //{
-        //    m_Anim.SetBool("WALK", false);
-        //}
-
+    public void AttackAreaFalse()
+    {
+        if (m_player_weapon.activeInHierarchy)
+        {
+            m_weaponAttackArea.SetActive(false);
+        }
+        else
+        {
+            m_handAttackArea.SetActive(false);
+        }
     }
 
     void character_Rotation()

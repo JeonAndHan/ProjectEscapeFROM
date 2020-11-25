@@ -6,16 +6,11 @@ public class EnemyZombie : EnemyMelee
 {
     public GameObject meleeAttackArea;
 
-    private string m_enemyName;
+    [SerializeField]
     private float m_maxHP;
+    [SerializeField]
     private float m_currentHP;
 
-    private void SetEnemyStatus(string enemyName, int maxHP)
-    {
-        m_enemyName = enemyName;
-        m_maxHP = maxHP;
-        m_currentHP = maxHP;
-    }
 
     // Start is called before the first frame update
     void Start()
@@ -28,13 +23,16 @@ public class EnemyZombie : EnemyMelee
         m_nav.stoppingDistance = 1f;
         StartCoroutine(ResetAttackArea());
 
-        if(name.Equals("BossZombie") || name.Equals("BossZombie (1)"))
+    }
+
+    public void Hit(float damage)
+    {
+        m_currentHP -= damage;
+        m_Anim.SetTrigger("HIT");
+
+        if (m_currentHP <= 0)
         {
-            SetEnemyStatus("Boss Zombie", 200);
-        }
-        else
-        {
-            SetEnemyStatus("Zombie", 100);
+            m_Anim.SetTrigger("DEATH");
         }
     }
 

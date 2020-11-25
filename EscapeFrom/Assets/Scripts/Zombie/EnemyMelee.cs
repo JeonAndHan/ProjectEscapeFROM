@@ -9,6 +9,8 @@ public class EnemyMelee : Enemy
         IDLE,
         WALK,
         ATTACK,
+        DEATH,
+        HIT,
     };
 
     public ZombieTrigger m_zombieTrigger;
