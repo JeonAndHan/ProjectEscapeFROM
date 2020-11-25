@@ -6,7 +6,9 @@ using TMPro;
 
 public class HealthBar : MonoBehaviour
 {
+    [SerializeField]
     protected Image m_bar;
+    [SerializeField]
     protected TextMeshProUGUI m_value_text;
 
     public void ShowHPbar(float current, float max)

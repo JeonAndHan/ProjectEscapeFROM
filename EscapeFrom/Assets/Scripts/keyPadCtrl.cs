@@ -61,17 +61,18 @@ public class keyPadCtrl : MonoBehaviour
 
     public void check_password()
     {
-        if (m_two) // 2436중 2만 눌렸을 때
+        //숫자 순서대로 누르게 하기..............ㅠㅠㅠ
+        if (m_six) 
         {
-            if (m_four) //436중 4만 눌렸을 때
+            if (m_three) 
             {
                 Debug.Log(m_count + "2,4 누름");
-                if (m_three) //36중 3만 눌렸을 때
+                if (m_four) 
                 {
                     Debug.Log(m_count + "2,4,3 누름");
-                    if (m_six)
+                    if (m_two)
                     {
-                            m_right = true;  //비밀번호 해제 성공
+                            m_right = true;  
                             Debug.Log("금고 번호 맞춤");
                         m_safe_door.transform.localEulerAngles = new Vector3(0f, -120f, 0f);
                     }
