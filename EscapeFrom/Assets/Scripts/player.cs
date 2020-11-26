@@ -12,6 +12,7 @@ public class player : MonoBehaviour
     float m_runSpeed;                    
     [SerializeField]
     Vector3 m_dir;
+    private bool m_isDead = false;
     
     Rigidbody m_rigidbody;
     CapsuleCollider m_collider;
@@ -59,6 +60,7 @@ public class player : MonoBehaviour
         if(m_currentHP <= 0)
         {
             m_Anim.SetBool("DEATH", true);
+            m_isDead = true;
         }
     }
 
@@ -66,11 +68,11 @@ public class player : MonoBehaviour
     {
             if (m_player_weapon.activeInHierarchy) //player가 무기를 들고있다면
             {
-                target.SendMessage("Hit", 50);
+                target.SendMessage("Hit", m_weapon_Damage);
             }
             else //player가 맨손이라면
             {
-                target.SendMessage("Hit", 20);
+                target.SendMessage("Hit", m_hand_Damage);
             }
         
     }
@@ -78,69 +80,71 @@ public class player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-      
-        if (!m_gameCtrl.m_pressR)
+        if (!m_isDead)
         {
-            character_Rotation();
-            camera_Rotation();
-            Move();
-        }
-        
-        //GameObject.FindWithTag("hpBar").GetComponent<HealthBar>.ShowHPbar(m_currentHP, m_maxHP);
-
-        if (Input.GetMouseButton(0) && !m_gameCtrl.m_pressR)
-        {
-            if (m_player_weapon.activeInHierarchy)
+            if (!m_gameCtrl.m_pressR)
             {
-                m_Anim.SetBool("WEAPONATTACK", true);
-               // m_weaponAttackArea.SetActive(true);
+                character_Rotation();
+                camera_Rotation();
+                Move();
+            }
+
+            //GameObject.FindWithTag("hpBar").GetComponent<HealthBar>.ShowHPbar(m_currentHP, m_maxHP);
+
+            if (Input.GetMouseButton(0) && !m_gameCtrl.m_pressR)
+            {
+                if (m_player_weapon.activeInHierarchy)
+                {
+                    m_Anim.SetBool("WEAPONATTACK", true);
+                    // m_weaponAttackArea.SetActive(true);
+                }
+                else
+                {
+                    m_Anim.SetBool("ATTACK", true);
+                    // m_handAttackArea.SetActive(true);
+                }
+
             }
             else
             {
-                m_Anim.SetBool("ATTACK", true);
-               // m_handAttackArea.SetActive(true);
-            }                   
-           
-        }
-        else
-        {
-            if (m_player_weapon.activeInHierarchy)
+                if (m_player_weapon.activeInHierarchy)
+                {
+                    m_Anim.SetBool("WEAPONATTACK", false);
+                    // m_weaponAttackArea.SetActive(false);
+                }
+                else
+                {
+                    m_Anim.SetBool("ATTACK", false);
+                    //m_handAttackArea.SetActive(false);
+                }
+
+            }
+
+            if (Input.GetKey(KeyCode.Z) && !m_gameCtrl.m_pressR)
             {
-                m_Anim.SetBool("WEAPONATTACK", false);
-               // m_weaponAttackArea.SetActive(false);
+                m_Anim.SetBool("PICKUP", true);
             }
             else
             {
-                m_Anim.SetBool("ATTACK", false);
-                //m_handAttackArea.SetActive(false);
+                m_Anim.SetBool("PICKUP", false);
             }
-            
-        }
 
-        if (Input.GetKey(KeyCode.Z) && !m_gameCtrl.m_pressR)
-        {
-            m_Anim.SetBool("PICKUP", true);
-        }
-        else
-        {
-            m_Anim.SetBool("PICKUP", false);
-        }
+            if (m_JumpCount < 1 && Input.GetButtonDown("Jump") && !m_gameCtrl.m_pressR)
+            {
+                m_rigidbody.velocity = new Vector3(m_rigidbody.velocity.x, 5, m_rigidbody.velocity.z);
+                m_JumpCount++;
+            }
+            m_Anim.SetFloat("JUMP", m_rigidbody.velocity.y);
 
-        if(m_JumpCount < 1 && Input.GetButtonDown("Jump") && !m_gameCtrl.m_pressR)
-        {
-            m_rigidbody.velocity = new Vector3(m_rigidbody.velocity.x, 5, m_rigidbody.velocity.z);
-            m_JumpCount++;
-        }
-        m_Anim.SetFloat("JUMP", m_rigidbody.velocity.y);
+            if (Input.GetKeyDown(KeyCode.LeftShift))
+            {
+                m_isRun = true;
+            }
 
-        if (Input.GetKeyDown(KeyCode.LeftShift))
-        {
-            m_isRun = true;
-        }
-
-        if (Input.GetKeyUp(KeyCode.LeftShift))
-        {
-            m_isRun = false;
+            if (Input.GetKeyUp(KeyCode.LeftShift))
+            {
+                m_isRun = false;
+            }
         }
 
     }

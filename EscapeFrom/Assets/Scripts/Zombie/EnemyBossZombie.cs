@@ -10,19 +10,20 @@ public class EnemyBossZombie : EnemyMelee
     private float m_maxHP;
     [SerializeField]
     private float m_currentHP;
-
+    public bool m_isDead;
     private player m_Target;
+
 
 
     // Start is called before the first frame update
     void Start()
     {
         base.Start();
-        attackCoolTime = 2f;
+        attackCoolTime = 1.5f;
         attackCoolTimeCacl = attackCoolTime;
 
-        attackRange = 2.5f;
-        m_nav.stoppingDistance = 1f;
+        attackRange = 3f;
+        m_nav.stoppingDistance = 2f;
         StartCoroutine(ResetAttackArea());
 
         m_currentHP = m_maxHP;
@@ -34,9 +35,11 @@ public class EnemyBossZombie : EnemyMelee
         m_currentHP -= damage;
         m_Anim.SetTrigger("HIT");
 
-        if(m_currentHP <= 0)
+        if (m_currentHP <= 0)
         {
             m_Anim.SetTrigger("DEATH");
+            m_isDead = true;
+            StopAllCoroutines();
         }
     }
 
@@ -63,7 +66,7 @@ public class EnemyBossZombie : EnemyMelee
     private void OnCollisionEnter(Collision collision)
     {
         //부딪친 대상이 player고 지금 좀비가 attack 상태라면
-        if(collision.gameObject.CompareTag("Player") && currentState == State.ATTACK)
+        if (collision.gameObject.CompareTag("Player") && currentState == State.ATTACK)
         {
             m_Target = collision.gameObject.GetComponent<player>();
             m_Target.Hit(20);
