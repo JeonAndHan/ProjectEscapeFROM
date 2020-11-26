@@ -19,9 +19,10 @@ public class GameCtrl : MonoBehaviour
     public GameObject m_Room2_Board_UI;
     public GameObject m_Desk_UI;
     public GameObject m_safe_UI;
-    public Canvas m_canvas;
     public TextMeshProUGUI m_Investigate_Text;
     public TextMeshProUGUI m_acquire_Text;
+    public Canvas m_canvas;
+
 
     [Header("TimeAttack")]
     public GameObject m_TimeAttack_UI;
@@ -149,6 +150,7 @@ public class GameCtrl : MonoBehaviour
         }
                
     }
+
     public void investigate_TextTrigger()
     {
         if (m_Room1_Board_Text.m_textTrigger)

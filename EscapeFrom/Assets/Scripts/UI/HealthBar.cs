@@ -15,7 +15,7 @@ public class HealthBar : MonoBehaviour
     {
         
         m_bar.fillAmount = current / max;
-        m_value_text.text = string.Format("{0}/{1}", current.ToString("N0"), max.ToString("N0"));
+        m_value_text.text = string.Format("{0} / {1}", current.ToString("N0"), max.ToString("N0"));
        
     }
 }

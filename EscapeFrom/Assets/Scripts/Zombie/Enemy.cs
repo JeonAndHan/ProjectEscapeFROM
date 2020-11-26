@@ -41,20 +41,21 @@ public class Enemy : MonoBehaviour
 
         distance = Vector3.Distance(m_player.transform.position, transform.position);
 
-        if(hit.transform == null)
-        {
-            Debug.Log("hit.transform == null");
-            return false;
-        }
+            if (hit.transform == null)
+            {
+                //Debug.Log("hit.transform == null");
+                return false;
+            }
 
-        if(hit.transform.CompareTag("Player") && distance <= attackRange)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+
+            if (hit.transform.CompareTag("Player") && distance <= attackRange)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
     }
 
     protected virtual IEnumerator CalcCoolTime()
@@ -75,8 +76,7 @@ public class Enemy : MonoBehaviour
     }
 
 
-    void Update()
-    {
-       // m_nav.SetDestination(m_player.transform.position);
-    }
 }
+
+
+//몬스터 FSM 참조 : https://www.youtube.com/watch?v=3xMlYb4_ItQ

@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class EnemyMelee : Enemy
 {
+    private EnemyBossZombie m_boss;
+    private EnemyZombie m_zombie;
+
     public enum State
     {
         IDLE,
@@ -23,6 +26,8 @@ public class EnemyMelee : Enemy
     protected void Start()
     {
         base.Start();
+        m_boss = gameObject.GetComponent<EnemyBossZombie>();
+        m_zombie = gameObject.GetComponent<EnemyZombie>();
         StartCoroutine(FSM());
     }
 
@@ -40,6 +45,7 @@ public class EnemyMelee : Enemy
             yield return StartCoroutine(currentState.ToString());
         }
     }
+
 
     protected virtual IEnumerator IDLE()
     {
@@ -72,7 +78,7 @@ public class EnemyMelee : Enemy
     {
         yield return null;
 
-        m_nav.stoppingDistance = 1f;
+        m_nav.stoppingDistance = 2f;
         m_nav.isStopped = true;
         //m_nav.SetDestination(m_player.transform.position);
         //yield return Delay500;
@@ -88,7 +94,7 @@ public class EnemyMelee : Enemy
         }
         yield return Delay500;
 
-        m_nav.speed = 2.5f;
+        m_nav.speed = 2f;
         m_nav.stoppingDistance = attackRange;
         currentState = State.IDLE;
 
@@ -107,7 +113,7 @@ public class EnemyMelee : Enemy
         {
             currentState = State.ATTACK;
         }
-        else if( distance > 7f)
+        else if( distance > 5f)
         {
             m_nav.SetDestination(transform.position - Vector3.forward * 5f);
         }
