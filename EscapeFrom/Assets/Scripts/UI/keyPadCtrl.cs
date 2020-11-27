@@ -44,10 +44,10 @@ public class keyPadCtrl : MonoBehaviour
 
     public void check_password()
     {
-        //숫자 순서대로 누르게 하기..............ㅠㅠㅠ
         if(m_clicked[0]=="2" && m_clicked[1]=="4" && m_clicked[2]=="3" && m_clicked[3] == "6")
         {
             Debug.Log("금고 번호 맞춤");
+            m_right = true;
             m_safe_door.transform.localEulerAngles = new Vector3(0f, -120f, 0f);
 
         }
