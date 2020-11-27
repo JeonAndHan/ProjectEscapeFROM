@@ -17,6 +17,7 @@ public class GameCtrl : MonoBehaviour
     public TextTrigger m_Statue1_Text;
     public TextTrigger m_Statue2_Text;
     public TextTrigger m_Statue3_Text;
+    public TextTrigger m_Room2PW_Text;
 
     [Header("TextTriggerUI")]
     public GameObject m_Room1_Board_UI;
@@ -24,6 +25,7 @@ public class GameCtrl : MonoBehaviour
     public GameObject m_Desk_UI;
     public GameObject m_safe_UI;
     public GameObject m_Room1PW_UI;
+    public GameObject m_Room2PW_UI;
     public TextMeshProUGUI m_Investigate_Text;
     public TextMeshProUGUI m_acquire_Text;
     public Canvas m_canvas;
@@ -44,6 +46,7 @@ public class GameCtrl : MonoBehaviour
     private bool m_Statue1_investigate;
     private bool m_Statue2_investigate;
     private bool m_Statue3_investigate;
+    private bool m_Room2PW_investigate;
 
     [Header("KeyBoardBool")]
     public bool m_pressR;
@@ -51,6 +54,7 @@ public class GameCtrl : MonoBehaviour
 
     public keyPadCtrl m_keypad;
     public Room1Pw m_room1_pw;
+    public Room2PW m_room2_pw;
 
     [Header("Weapon")]
     public GameObject m_player_weapon;
@@ -163,6 +167,15 @@ public class GameCtrl : MonoBehaviour
             m_Room1PW_UI.SetActive(false);
         }
 
+        if(m_pressR && m_Room2PW_investigate && !m_room1_pw.m_right)
+        {
+            m_Room2PW_UI.SetActive(true);
+        }
+        else
+        {
+            m_Room2PW_UI.SetActive(false);
+        }
+
         int i, j;
 
         //timeAttack
@@ -223,6 +236,11 @@ public class GameCtrl : MonoBehaviour
             m_Investigate_Text.gameObject.SetActive(true);
             m_Statue3_investigate = true;
         }
+        else if (m_Room2PW_Text.m_textTrigger)
+        {
+            m_Investigate_Text.gameObject.SetActive(true);
+            m_Room2PW_investigate = true;
+        }
         else
         {
             m_Investigate_Text.gameObject.SetActive(false);
@@ -235,6 +253,7 @@ public class GameCtrl : MonoBehaviour
             m_Statue1_investigate = false;
             m_Statue2_investigate = false;
             m_Statue3_investigate = false;
+            m_Room2PW_investigate = false;
         }
     }
 }
