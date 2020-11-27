@@ -19,20 +19,9 @@ public class keyPadCtrl : MonoBehaviour
     public Button m_Green;
 
     private string[] m_clicked = new string[4];
-    m_clicked = [null,null,null,null];
 
-    private bool m_one;
-    private bool m_two;
-    private bool m_three;
-    private bool m_four;
-    private bool m_five;
-    private bool m_six;
-    private bool m_seven;
-    private bool m_eight;
-    private bool m_nine;
-    private bool m_zero;
-    private bool m_green;
-
+    private bool m_green = false;
+    
     private int m_count = 0; //4번 입력받고 더이상 못받게 count
     public bool m_right = false; //비밀번호 맞았을 때 true
     public GameObject m_safe_door;
@@ -58,7 +47,7 @@ public class keyPadCtrl : MonoBehaviour
             else
             {
                 m_count = 0;
-                m_clicked =[null, null, null, null];
+                m_clicked = new string[4];//배열초기화
             }
         }
          
@@ -67,22 +56,11 @@ public class keyPadCtrl : MonoBehaviour
     public void check_password()
     {
         //숫자 순서대로 누르게 하기..............ㅠㅠㅠ
-        if (m_six) 
+        if(m_clicked[0]=="2" && m_clicked[1]=="4" && m_clicked[2]=="3" && m_clicked[3] == "6")
         {
-            if (m_three) 
-            {
-                Debug.Log(m_count + "2,4 누름");
-                if (m_four) 
-                {
-                    Debug.Log(m_count + "2,4,3 누름");
-                    if (m_two)
-                    {
-                            m_right = true;  
-                            Debug.Log("금고 번호 맞춤");
-                        m_safe_door.transform.localEulerAngles = new Vector3(0f, -120f, 0f);
-                    }
-                }
-            }
+            Debug.Log("금고 번호 맞춤");
+            m_safe_door.transform.localEulerAngles = new Vector3(0f, -120f, 0f);
+
         }
     }
 
@@ -95,51 +73,51 @@ public class keyPadCtrl : MonoBehaviour
 
     public void ClickTwo()
     {
-        m_two = true;
+        m_clicked[m_count] = "2";
         m_count++;
         Debug.Log("2번눌림");
     }
     public void ClickThree()
     {
-        m_three = true;
+        m_clicked[m_count] = "3";
         m_count++;
         Debug.Log("3번눌림");
     }
     public void ClickFour()
     {
-        m_four = true;
+        m_clicked[m_count] = "4";
         m_count++;
         Debug.Log("4번눌림");
     }
     public void ClickFive()
     {
-        m_five = true;
+        m_clicked[m_count] = "5";
         m_count++;
     }
     public void ClickSix()
     {
-        m_six = true;
+        m_clicked[m_count] = "6";
         m_count++;
         Debug.Log("6번눌림");
     }
     public void ClickSeven()
     {
-        m_seven = true;
+        m_clicked[m_count] = "7";
         m_count++;
     }
     public void ClickEight()
     {
-        m_eight = true;
+        m_clicked[m_count] = "8";
         m_count++;
     }
     public void ClickNine()
     {
-        m_nine = true;
+        m_clicked[m_count] = "9";
         m_count++;
     }
     public void ClickZero()
     {
-        m_zero = true;
+        m_clicked[m_count] = "0";
         m_count++;
     }
 
@@ -147,16 +125,6 @@ public class keyPadCtrl : MonoBehaviour
     {
         m_green = true;
         Debug.Log("green 눌림");
-        //m_one = false;
-        //m_two = false;
-        //m_three = false;
-        //m_four = false;
-        //m_five = false;
-        //m_six = false;
-        //m_seven = false;
-        //m_eight = false;
-        //m_nine = false;
-        //m_zero = false;
 
     }
 
