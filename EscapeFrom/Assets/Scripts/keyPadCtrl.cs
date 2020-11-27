@@ -18,6 +18,9 @@ public class keyPadCtrl : MonoBehaviour
     public Button m_num0;
     public Button m_Green;
 
+    private string[] m_clicked = new string[4];
+    m_clicked = [null,null,null,null];
+
     private bool m_one;
     private bool m_two;
     private bool m_three;
@@ -55,6 +58,7 @@ public class keyPadCtrl : MonoBehaviour
             else
             {
                 m_count = 0;
+                m_clicked =[null, null, null, null];
             }
         }
          
@@ -84,7 +88,7 @@ public class keyPadCtrl : MonoBehaviour
 
     public void ClickOne()
     {
-        m_one = true;
+        m_clicked[m_count] = "1";
         m_count++;
         Debug.Log("1번눌림");
     }
