@@ -38,18 +38,7 @@ public class keyPadCtrl : MonoBehaviour
     void Update()
     {
 
-        if (m_green)
-        {
-            if(m_count == 4)
-            {
-                check_password();
-            }
-            else
-            {
-                m_count = 0;
-                m_clicked = new string[4];//배열초기화
-            }
-        }
+        
          
     }
 
@@ -61,6 +50,12 @@ public class keyPadCtrl : MonoBehaviour
             Debug.Log("금고 번호 맞춤");
             m_safe_door.transform.localEulerAngles = new Vector3(0f, -120f, 0f);
 
+        }
+        else
+        {
+            Debug.Log("번호 초기화");
+            m_count = 0;
+            m_clicked = new string[4];//배열초기화
         }
     }
 
@@ -125,7 +120,16 @@ public class keyPadCtrl : MonoBehaviour
     {
         m_green = true;
         Debug.Log("green 눌림");
-
+        if (m_count == 4)
+        {
+             check_password();
+        }
+        else
+        {
+             Debug.Log("번호 초기화");
+             m_count = 0;
+             m_clicked = new string[4];//배열초기화
+        }
     }
 
 }
