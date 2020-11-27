@@ -18,20 +18,10 @@ public class Room1Pw : MonoBehaviour
     public Button m_num0;
     public Button m_Green;
 
-    private bool m_one;
-    private bool m_two;
-    private bool m_three;
-    private bool m_four;
-    private bool m_five;
-    private bool m_six;
-    private bool m_seven;
-    private bool m_eight;
-    private bool m_nine;
-    private bool m_zero;
+    private string[] m_clicked = new string[6];
     private bool m_green;
 
     private int m_count = 0; //6번 입력받고 더이상 못받게 count
-    private int m_four_count = 0; //4는 두번 눌려야하기때문
     public bool m_right = false; //비밀번호 맞았을 때 true
     public GameObject m_Room1_door;
 
@@ -45,103 +35,80 @@ public class Room1Pw : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
-
-        if (m_green)
-        {
-            if (m_count == 6)
-            {
-                check_password();
-            }
-            else
-            {
-                m_count = 0;
-
-            }
-        }
+    { 
 
     }
 
     public void check_password()
     {
-        //숫자 순서대로 누르게 하기..............ㅠㅠㅠ
-        if (m_three)
+        if (m_clicked[0] == "0" && m_clicked[1] == "3" && m_clicked[2] == "9" && m_clicked[3] == "4" && m_clicked[4]=="4" && m_clicked[5]=="3")
         {
-            if (m_four && m_four_count ==2)
-            {
-                Debug.Log(m_count + "2,4 누름");
-                if (m_nine)
-                {
-                    Debug.Log(m_count + "2,4,3 누름");
-                    if (m_three)
-                    {
-                        if (m_zero)
-                        {
-                            m_right = true;
-                            Debug.Log("금고 번호 맞춤");
-                            m_Room1_door.SetActive(false);
-                        }
-                    }
-                }
-            }
+            Debug.Log("금고 번호 맞춤");
+            m_Room1_door.SetActive(false);
+
+        }
+        else
+        {
+            Debug.Log("번호 초기화");
+            m_count = 0;
+            m_clicked = new string[6];//배열초기화
         }
     }
 
     public void ClickOne()
     {
-        m_one = true;
+        m_clicked[m_count] = "1";
         m_count++;
         Debug.Log("1번눌림");
     }
 
     public void ClickTwo()
     {
-        m_two = true;
+        m_clicked[m_count] = "2";
         m_count++;
         Debug.Log("2번눌림");
     }
     public void ClickThree()
     {
-        m_three = true;
+        m_clicked[m_count] = "3";
         m_count++;
         Debug.Log("3번눌림");
     }
     public void ClickFour()
     {
-        m_four = true;
-        m_four_count++;
+        m_clicked[m_count] = "4";
         m_count++;
         Debug.Log("4번눌림");
     }
     public void ClickFive()
     {
-        m_five = true;
+        m_clicked[m_count] = "5";
         m_count++;
     }
     public void ClickSix()
     {
-        m_six = true;
+        m_clicked[m_count] = "6";
         m_count++;
         Debug.Log("6번눌림");
     }
     public void ClickSeven()
     {
-        m_seven = true;
+        m_clicked[m_count] = "7";
         m_count++;
     }
     public void ClickEight()
     {
-        m_eight = true;
+        m_clicked[m_count] = "8";
         m_count++;
     }
     public void ClickNine()
     {
-        m_nine = true;
+        m_clicked[m_count] = "9";
         m_count++;
     }
     public void ClickZero()
     {
-        m_zero = true;
+        m_clicked[m_count] = "0";
         m_count++;
     }
 
@@ -149,17 +116,16 @@ public class Room1Pw : MonoBehaviour
     {
         m_green = true;
         Debug.Log("green 눌림");
-        //m_one = false;
-        //m_two = false;
-        //m_three = false;
-        //m_four = false;
-        //m_five = false;
-        //m_six = false;
-        //m_seven = false;
-        //m_eight = false;
-        //m_nine = false;
-        //m_zero = false;
-
+        if (m_count == 6)
+        {
+            check_password();
+        }
+        else
+        {
+            Debug.Log("번호 초기화");
+            m_count = 0;
+            m_clicked = new string[6];//배열초기화
+        }
     }
 
 }
