@@ -14,6 +14,9 @@ public class GameCtrl : MonoBehaviour
     public TextTrigger m_Desk_Text;
     public TextTrigger m_Safe_Text;
     public TextTrigger m_Room1PW_Text;
+    public TextTrigger m_Statue1_Text;
+    public TextTrigger m_Statue2_Text;
+    public TextTrigger m_Statue3_Text;
 
     [Header("TextTriggerUI")]
     public GameObject m_Room1_Board_UI;
@@ -38,6 +41,9 @@ public class GameCtrl : MonoBehaviour
     private bool m_Desk_investigate;
     private bool m_Safe_investigate;
     private bool m_Room1PW_investigate;
+    private bool m_Statue1_investigate;
+    private bool m_Statue2_investigate;
+    private bool m_Statue3_investigate;
 
     [Header("KeyBoardBool")]
     public bool m_pressR;
@@ -53,7 +59,7 @@ public class GameCtrl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        time = 300f;
+        
     }
 
     // Update is called once per frame
@@ -80,6 +86,12 @@ public class GameCtrl : MonoBehaviour
         {
             m_pressZ = false;
             Debug.Log("z에서 손 뗌");
+        }
+
+        if(m_pressR && !m_TimeAttack_UI.activeInHierarchy && m_Computer_Text.m_textTrigger)
+        {
+            time = 300f;
+            m_TimeAttack_UI.gameObject.SetActive(true);
         }
 
         if(m_pressZ && m_acquire_Text.gameObject.activeInHierarchy) // z가 눌렸고, acquiretext가 true라면
@@ -176,7 +188,7 @@ public class GameCtrl : MonoBehaviour
             m_Investigate_Text.gameObject.SetActive(true);
             m_Room2_Board_investigate = true;
         }
-        else if (m_Computer_Text.m_textTrigger)
+        else if (m_Computer_Text.m_textTrigger && !m_TimeAttack_UI.activeInHierarchy)
         {
             m_Investigate_Text.gameObject.SetActive(true);
             m_computer_investigate = true;
@@ -196,6 +208,21 @@ public class GameCtrl : MonoBehaviour
             m_Investigate_Text.gameObject.SetActive(true);
             m_Room1PW_investigate = true;
         }
+        else if (m_Statue1_Text.m_textTrigger)
+        {
+            m_Investigate_Text.gameObject.SetActive(true);
+            m_Statue1_investigate = true;
+        }
+        else if (m_Statue2_Text.m_textTrigger)
+        {
+            m_Investigate_Text.gameObject.SetActive(true);
+            m_Statue2_investigate = true;
+        }
+        else if (m_Statue3_Text.m_textTrigger)
+        {
+            m_Investigate_Text.gameObject.SetActive(true);
+            m_Statue3_investigate = true;
+        }
         else
         {
             m_Investigate_Text.gameObject.SetActive(false);
@@ -205,6 +232,9 @@ public class GameCtrl : MonoBehaviour
             m_Desk_investigate = false;
             m_Safe_investigate = false;
             m_Room1PW_investigate = false;
+            m_Statue1_investigate = false;
+            m_Statue2_investigate = false;
+            m_Statue3_investigate = false;
         }
     }
 }
