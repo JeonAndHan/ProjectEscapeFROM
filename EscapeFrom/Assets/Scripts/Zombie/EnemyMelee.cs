@@ -6,6 +6,12 @@ public class EnemyMelee : Enemy
 {
     private EnemyBossZombie m_boss;
     private EnemyZombie m_zombie;
+    [SerializeField]
+    private float m_maxHP;
+    [SerializeField]
+    private float m_currentHP;
+    public bool m_isDead;
+    private player m_Target;
 
     public enum State
     {
@@ -29,6 +35,22 @@ public class EnemyMelee : Enemy
         m_boss = gameObject.GetComponent<EnemyBossZombie>();
         m_zombie = gameObject.GetComponent<EnemyZombie>();
         StartCoroutine(FSM());
+        m_currentHP = m_maxHP;
+    }
+
+    public void Hit(float damage)
+    {
+        m_currentHP -= damage;
+        m_Anim.SetTrigger("HIT");
+
+        if (m_currentHP <= 0)
+        {
+            m_Anim.SetTrigger("DEATH");
+            currentState = State.DEATH;
+            m_isDead = true;
+            m_collider.isTrigger = true;
+            StopAllCoroutines();
+        }
     }
 
     protected virtual IEnumerator FSM()
@@ -91,6 +113,17 @@ public class EnemyMelee : Enemy
         {
             Debug.Log("Attack Anim");
             m_Anim.SetTrigger("ATTACK");
+            if (this.gameObject.CompareTag("BossZombie"))
+            {
+                m_Target = m_player.GetComponent<player>();
+                m_Target.Hit(20);
+            }
+            else if (this.gameObject.CompareTag("Zombie"))
+            {
+                m_Target = m_player.GetComponent<player>();
+                m_Target.Hit(10);
+            }
+
         }
         yield return Delay500;
 

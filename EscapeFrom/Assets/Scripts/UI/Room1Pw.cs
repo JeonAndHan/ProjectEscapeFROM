@@ -25,8 +25,6 @@ public class Room1Pw : MonoBehaviour
     public bool m_right = false; //비밀번호 맞았을 때 true
     public GameObject m_Room1_door;
 
-
-
     // Start is called before the first frame update
     void Start()
     {
@@ -43,6 +41,7 @@ public class Room1Pw : MonoBehaviour
     {
         if (m_clicked[0] == "0" && m_clicked[1] == "3" && m_clicked[2] == "9" && m_clicked[3] == "4" && m_clicked[4]=="4" && m_clicked[5]=="3")
         {
+            m_right = true;
             Debug.Log("금고 번호 맞춤");
             m_Room1_door.SetActive(false);
 

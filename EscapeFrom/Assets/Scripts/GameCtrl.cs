@@ -26,6 +26,7 @@ public class GameCtrl : MonoBehaviour
     public GameObject m_safe_UI;
     public GameObject m_Room1PW_UI;
     public GameObject m_Room2PW_UI;
+    public GameObject m_Trick;
     public TextMeshProUGUI m_Investigate_Text;
     public TextMeshProUGUI m_acquire_Text;
     public Canvas m_canvas;
@@ -107,6 +108,11 @@ public class GameCtrl : MonoBehaviour
         if (m_player_weapon.gameObject.activeInHierarchy)
         {
             m_acquire_Text.gameObject.SetActive(false);
+        }
+
+        if(m_pressR && m_Statue3_investigate) //R버튼이 눌리고 statue3의 트리거에 들어가있다면
+        {
+            m_Trick.gameObject.SetActive(true);
         }
 
 
@@ -231,12 +237,12 @@ public class GameCtrl : MonoBehaviour
             m_Investigate_Text.gameObject.SetActive(true);
             m_Statue2_investigate = true;
         }
-        else if (m_Statue3_Text.m_textTrigger)
+        else if (m_Statue3_Text.m_textTrigger && !m_Trick.activeInHierarchy)
         {
             m_Investigate_Text.gameObject.SetActive(true);
             m_Statue3_investigate = true;
         }
-        else if (m_Room2PW_Text.m_textTrigger)
+        else if (m_Room2PW_Text.m_textTrigger && !m_room2_pw.m_right)
         {
             m_Investigate_Text.gameObject.SetActive(true);
             m_Room2PW_investigate = true;
