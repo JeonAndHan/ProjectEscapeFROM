@@ -35,7 +35,7 @@ public class GameCtrl : MonoBehaviour
     [Header("TimeAttack")]
     public GameObject m_TimeAttack_UI;
     public TextMeshProUGUI m_Time_Text;
-    private float time;
+    private float time=-1f;
 
     [Header("TextTriggerBool")]
     private bool m_computer_investigate;
@@ -61,10 +61,12 @@ public class GameCtrl : MonoBehaviour
     public GameObject m_player_weapon;
     public GameObject m_safe_weapon;
 
+    [Header("Explosion")]
+    public GameObject m_explosion;
     // Start is called before the first frame update
     void Start()
     {
-        
+        m_explosion.SetActive(false);
     }
 
     // Update is called once per frame
@@ -95,7 +97,7 @@ public class GameCtrl : MonoBehaviour
 
         if(m_pressR && !m_TimeAttack_UI.activeInHierarchy && m_Computer_Text.m_textTrigger)
         {
-            time = 300f;
+            time = 3f; 
             m_TimeAttack_UI.gameObject.SetActive(true);
         }
 
@@ -185,12 +187,18 @@ public class GameCtrl : MonoBehaviour
         int i, j;
 
         //timeAttack
-        if(time > 0)
+        if (time > 0)
         {
             time -= Time.deltaTime;
             i = (int)(time / 60);
             j = (int)(time % 60);
             m_Time_Text.text = i + " : " + j.ToString();
+            Debug.Log(time);
+        }
+        else if ((int)time == 0)
+        {
+            Debug.Log("타임종료");
+            m_explosion.SetActive(true);
         }
                
     }
