@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Net.Http.Headers;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class player : MonoBehaviour
 {
@@ -34,7 +35,7 @@ public class player : MonoBehaviour
     public Transform m_cameraArm;
     public GameCtrl m_gameCtrl;
     private float m_lookSensitivity = 3f;
-    private float m_cameraRotationLimit = 20f;
+    private float m_cameraRotationLimit = 10f;
     private float m_currentCameraRotationX;
 
     [Header("playerHP변수")]
@@ -55,12 +56,16 @@ public class player : MonoBehaviour
 
     public void Hit(float damage)
     {
-        m_currentHP -= damage;
-        UICtrl.Instance.showHp(m_currentHP, m_maxHP);
-        if(m_currentHP <= 0)
+        if (!m_isDead)
         {
-            m_Anim.SetBool("DEATH", true);
-            m_isDead = true;
+            m_currentHP -= damage;
+            UICtrl.Instance.showHp(m_currentHP, m_maxHP);
+            if (m_currentHP <= 0)
+            {
+                m_Anim.SetTrigger("DIE");
+                m_isDead = true;
+                StartCoroutine(gameover());
+            }
         }
     }
 
@@ -96,12 +101,13 @@ public class player : MonoBehaviour
                 if (m_player_weapon.activeInHierarchy)
                 {
                     m_Anim.SetBool("WEAPONATTACK", true);
-                    // m_weaponAttackArea.SetActive(true);
+                    m_Anim.SetBool("WALK", false);
+
                 }
                 else
                 {
                     m_Anim.SetBool("ATTACK", true);
-                    // m_handAttackArea.SetActive(true);
+                    
                 }
 
             }
@@ -223,6 +229,14 @@ public class player : MonoBehaviour
         {
             m_JumpCount = 0;
         }
+    }
+
+    IEnumerator gameover()
+    {
+        WaitForSeconds Delay2sec = new WaitForSeconds(2f);
+        yield return Delay2sec;
+
+        SceneManager.LoadScene("GameOver");
     }
 
 }

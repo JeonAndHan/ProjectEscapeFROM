@@ -8,8 +8,7 @@ public class EnemyMelee : Enemy
     private EnemyZombie m_zombie;
     [SerializeField]
     private float m_maxHP;
-    [SerializeField]
-    private float m_currentHP;
+    public float m_currentHP;
     public bool m_isDead;
     private player m_Target;
 
@@ -41,9 +40,12 @@ public class EnemyMelee : Enemy
     public void Hit(float damage)
     {
         m_currentHP -= damage;
-        m_Anim.SetTrigger("HIT");
+        if (m_currentHP > 0)
+        {
+            m_Anim.SetTrigger("HIT");
+        }
 
-        if (m_currentHP <= 0)
+        if (m_currentHP <= 0 && !m_isDead)
         {
             m_Anim.SetTrigger("DEATH");
             currentState = State.DEATH;
@@ -90,9 +92,13 @@ public class EnemyMelee : Enemy
                 transform.LookAt(m_player.transform.position);
             }
         }
-        else
+        else if(distance < 15f)
         {
             currentState = State.WALK;
+        }
+        else
+        {
+            currentState = State.IDLE;
         }
     }
 
@@ -146,9 +152,9 @@ public class EnemyMelee : Enemy
         {
             currentState = State.ATTACK;
         }
-        else if( distance > 5f)
+        else if(distance > 15f)
         {
-            m_nav.SetDestination(transform.position - Vector3.forward * 5f);
+            m_nav.SetDestination(transform.position - Vector3.forward*5f);
         }
         else
         {

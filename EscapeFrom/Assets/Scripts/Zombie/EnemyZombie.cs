@@ -11,7 +11,7 @@ public class EnemyZombie : EnemyMelee
     void Start()
     {
         base.Start();
-        attackCoolTime = 2f;
+        attackCoolTime = 3f;
         attackCoolTimeCacl = attackCoolTime;
 
         attackRange = 3f;

@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class doorCtrl : MonoBehaviour
 {
-    [SerializeField]
-    GameObject m_playerAttackArea;
+    //cabinet door ctrl
     private int m_hitCount;
 
     // Start is called before the first frame update
