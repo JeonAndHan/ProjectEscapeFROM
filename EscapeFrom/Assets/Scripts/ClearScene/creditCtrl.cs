@@ -9,11 +9,16 @@ public class creditCtrl : MonoBehaviour
     public RectTransform m_rectTransform;
     [SerializeField]
     private float m_Speed;
+    SoundManager Sound;
+    EffectManager Effect;
 
     // Start is called before the first frame update
     void Start()
     {
         m_rectTransform = GetComponent<RectTransform>();
+        Sound = FindObjectOfType<SoundManager>();
+        Sound.EndingPlay();
+        Effect = FindObjectOfType<EffectManager>();
     }
 
     // Update is called once per frame
@@ -23,7 +28,7 @@ public class creditCtrl : MonoBehaviour
 
         if(m_rectTransform.position.y + m_Speed > 150f)
         {
-            //좀비소리 넣기 2초 정도
+            Effect.EffectPlay(1);//좀비소리 넣기 2초 정도
             StartCoroutine(twosec());
        }
         Debug.Log(m_rectTransform.position.y + m_Speed);
@@ -34,6 +39,5 @@ public class creditCtrl : MonoBehaviour
         WaitForSeconds two = new WaitForSeconds(2f);
         yield return two;
         UnityEditor.EditorApplication.isPlaying = false;
-
     }
 }

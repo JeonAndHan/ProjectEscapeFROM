@@ -42,6 +42,9 @@ public class player : MonoBehaviour
     [SerializeField]
     private float m_maxHP;
     private float m_currentHP;
+    EffectManager Effect;
+    SoundManager Sound;
+
 
     // Start is called before the first frame update
     void Start()
@@ -52,6 +55,9 @@ public class player : MonoBehaviour
 
         m_currentHP = m_maxHP;
         UICtrl.Instance.showHp(m_currentHP, m_maxHP);
+        Effect = FindObjectOfType<EffectManager>();
+        Sound = FindObjectOfType<SoundManager>();
+
     }
 
     public void Hit(float damage)
@@ -64,6 +70,8 @@ public class player : MonoBehaviour
             {
                 m_Anim.SetTrigger("DIE");
                 m_isDead = true;
+                Sound.Stop();
+                Effect.EffectPlay(1);
                 StartCoroutine(gameover());
             }
         }
@@ -71,6 +79,7 @@ public class player : MonoBehaviour
 
     public void attackTarget(GameObject target)
     {
+            
             if (m_player_weapon.activeInHierarchy) //player가 무기를 들고있다면
             {
                 target.SendMessage("Hit", m_weapon_Damage);
@@ -98,6 +107,7 @@ public class player : MonoBehaviour
 
             if (Input.GetMouseButton(0) && !m_gameCtrl.m_pressR)
             {
+                Effect.EffectPlay(2);
                 if (m_player_weapon.activeInHierarchy)
                 {
                     m_Anim.SetBool("WEAPONATTACK", true);
