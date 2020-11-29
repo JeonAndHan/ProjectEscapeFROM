@@ -97,7 +97,7 @@ public class GameCtrl : MonoBehaviour
 
         if(m_pressR && !m_TimeAttack_UI.activeInHierarchy && m_Computer_Text.m_textTrigger)
         {
-            time = 3f; 
+            time = 300f; 
             m_TimeAttack_UI.gameObject.SetActive(true);
         }
 
