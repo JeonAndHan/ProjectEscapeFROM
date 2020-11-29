@@ -9,11 +9,14 @@ public class creditCtrl : MonoBehaviour
     public RectTransform m_rectTransform;
     [SerializeField]
     private float m_Speed;
+    SoundManager Sound;
 
     // Start is called before the first frame update
     void Start()
     {
         m_rectTransform = GetComponent<RectTransform>();
+        Sound = FindObjectOfType<SoundManager>();
+        Sound.EndingPlay();
     }
 
     // Update is called once per frame

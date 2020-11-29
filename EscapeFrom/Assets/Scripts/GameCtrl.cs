@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class GameCtrl : MonoBehaviour
 {
@@ -63,10 +64,14 @@ public class GameCtrl : MonoBehaviour
 
     [Header("Explosion")]
     public GameObject m_explosion;
-    // Start is called before the first frame update
+    
+    [Header("Sound")]
+    SoundManager Sound;
+
     void Start()
     {
         m_explosion.SetActive(false);
+        Sound = FindObjectOfType<SoundManager>();
     }
 
     // Update is called once per frame
@@ -99,6 +104,7 @@ public class GameCtrl : MonoBehaviour
         {
             time = 300f; 
             m_TimeAttack_UI.gameObject.SetActive(true);
+            Sound.Play();
         }
 
         if(m_pressZ && m_acquire_Text.gameObject.activeInHierarchy) // z가 눌렸고, acquiretext가 true라면
@@ -193,12 +199,14 @@ public class GameCtrl : MonoBehaviour
             i = (int)(time / 60);
             j = (int)(time % 60);
             m_Time_Text.text = i + " : " + j.ToString();
-            Debug.Log(time);
         }
+        /* GAME OVER ENDING 1 - TIME OVER */
         else if ((int)time == 0)
         {
             Debug.Log("타임종료");
             m_explosion.SetActive(true);
+            Sound.Stop();
+            StartCoroutine(gameover());
         }
                
     }
@@ -269,5 +277,13 @@ public class GameCtrl : MonoBehaviour
             m_Statue3_investigate = false;
             m_Room2PW_investigate = false;
         }
+    }
+
+    IEnumerator gameover()
+    {
+        WaitForSeconds Delay2sec = new WaitForSeconds(2f);
+        yield return Delay2sec;
+
+        SceneManager.LoadScene("GameOver");
     }
 }
