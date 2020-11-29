@@ -67,11 +67,13 @@ public class GameCtrl : MonoBehaviour
     
     [Header("Sound")]
     SoundManager Sound;
+    EffectManager Effect;
 
     void Start()
     {
         m_explosion.SetActive(false);
         Sound = FindObjectOfType<SoundManager>();
+        Effect = FindObjectOfType<EffectManager>();
     }
 
     // Update is called once per frame
@@ -118,9 +120,19 @@ public class GameCtrl : MonoBehaviour
             m_acquire_Text.gameObject.SetActive(false);
         }
 
+        if(m_pressR && m_Statue1_investigate)
+        {
+            Effect.EffectPlay(7);
+        }
+        if(m_pressR && m_Statue2_investigate)
+        {
+            Effect.EffectPlay(6);
+        }
+
         if(m_pressR && m_Statue3_investigate) //R버튼이 눌리고 statue3의 트리거에 들어가있다면
         {
             m_Trick.gameObject.SetActive(true);
+            Effect.EffectPlay(8);
         }
 
 
@@ -181,7 +193,7 @@ public class GameCtrl : MonoBehaviour
             m_Room1PW_UI.SetActive(false);
         }
 
-        if(m_pressR && m_Room2PW_investigate && !m_room1_pw.m_right)
+        if(m_pressR && m_Room2PW_investigate && !m_room2_pw.m_right)
         {
             m_Room2PW_UI.SetActive(true);
         }

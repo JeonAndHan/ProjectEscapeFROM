@@ -27,6 +27,7 @@ public class EnemyMelee : Enemy
     WaitForSeconds Delay500 = new WaitForSeconds(0.5f);
     WaitForSeconds Delay250 = new WaitForSeconds(0.25f);
 
+    EffectManager Effect;
     // Start is called before the first frame update
     protected void Start()
     {
@@ -35,6 +36,7 @@ public class EnemyMelee : Enemy
         m_zombie = gameObject.GetComponent<EnemyZombie>();
         StartCoroutine(FSM());
         m_currentHP = m_maxHP;
+        Effect = FindObjectOfType<EffectManager>();
     }
 
     public void Hit(float damage)
@@ -123,11 +125,13 @@ public class EnemyMelee : Enemy
             {
                 m_Target = m_player.GetComponent<player>();
                 m_Target.Hit(20);
+                Effect.EffectPlay(1);
             }
             else if (this.gameObject.CompareTag("Zombie"))
             {
                 m_Target = m_player.GetComponent<player>();
                 m_Target.Hit(10);
+                Effect.EffectPlay(0);
             }
 
         }

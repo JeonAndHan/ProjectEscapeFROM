@@ -26,12 +26,15 @@ public class keyPadCtrl : MonoBehaviour
     public bool m_right = false; //비밀번호 맞았을 때 true
     public GameObject m_safe_door;
     
+    EffectManager Effect;
+    DoorEffectManager DoorEffect;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        Effect = FindObjectOfType<EffectManager>();
+        DoorEffect = FindObjectOfType<DoorEffectManager>();
     }
 
     // Update is called once per frame
@@ -49,13 +52,15 @@ public class keyPadCtrl : MonoBehaviour
             Debug.Log("금고 번호 맞춤");
             m_right = true;
             m_safe_door.transform.localEulerAngles = new Vector3(0f, -120f, 0f);
-
+            Effect.EffectPlay(3);
+            DoorEffect.Play();
         }
         else
         {
             Debug.Log("번호 초기화");
             m_count = 0;
             m_clicked = new string[4];//배열초기화
+            Effect.EffectPlay(4);
         }
     }
 
@@ -64,6 +69,8 @@ public class keyPadCtrl : MonoBehaviour
         m_clicked[m_count] = "1";
         m_count++;
         Debug.Log("1번눌림");
+        Effect.EffectPlay(5);
+        
     }
 
     public void ClickTwo()
@@ -71,49 +78,58 @@ public class keyPadCtrl : MonoBehaviour
         m_clicked[m_count] = "2";
         m_count++;
         Debug.Log("2번눌림");
+        Effect.EffectPlay(5);
     }
     public void ClickThree()
     {
         m_clicked[m_count] = "3";
         m_count++;
         Debug.Log("3번눌림");
+        Effect.EffectPlay(5);
     }
     public void ClickFour()
     {
         m_clicked[m_count] = "4";
         m_count++;
         Debug.Log("4번눌림");
+        Effect.EffectPlay(5);
     }
     public void ClickFive()
     {
         m_clicked[m_count] = "5";
         m_count++;
+        Effect.EffectPlay(5);
     }
     public void ClickSix()
     {
         m_clicked[m_count] = "6";
         m_count++;
         Debug.Log("6번눌림");
+        Effect.EffectPlay(5);
     }
     public void ClickSeven()
     {
         m_clicked[m_count] = "7";
         m_count++;
+        Effect.EffectPlay(5);
     }
     public void ClickEight()
     {
         m_clicked[m_count] = "8";
         m_count++;
+        Effect.EffectPlay(5);
     }
     public void ClickNine()
     {
         m_clicked[m_count] = "9";
         m_count++;
+        Effect.EffectPlay(5);
     }
     public void ClickZero()
     {
         m_clicked[m_count] = "0";
         m_count++;
+        Effect.EffectPlay(5);
     }
 
     public void ClickGreen()
@@ -129,6 +145,7 @@ public class keyPadCtrl : MonoBehaviour
              Debug.Log("번호 초기화");
              m_count = 0;
              m_clicked = new string[4];//배열초기화
+             Effect.EffectPlay(4);
         }
     }
 

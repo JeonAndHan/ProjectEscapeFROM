@@ -30,6 +30,7 @@ public class EnemyZombie : EnemyMelee
             {
                 yield return new WaitForSeconds(attackCoolTime);
                 meleeAttackArea.SetActive(true);
+                
             }
         }
     }

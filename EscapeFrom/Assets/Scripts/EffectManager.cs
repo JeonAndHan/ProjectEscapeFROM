@@ -31,8 +31,10 @@ public class EffectManager : MonoBehaviour
         6 : statue screaming
         7 : statue victoria
         8 : trick
+        9 : door open
     */
     public void EffectPlay(int track_number){
+        source = GetComponent<AudioSource>();
         source.clip = effectclips[track_number];
         source.Play();
     }

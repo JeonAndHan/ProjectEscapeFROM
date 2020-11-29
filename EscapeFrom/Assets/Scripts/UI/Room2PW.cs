@@ -18,9 +18,15 @@ public class Room2PW : MonoBehaviour
     public bool m_right = false; //비밀번호 맞았을 때 true
 
     public GameObject m_door;
+    EffectManager Effect;
+    DoorEffectManager DoorEffect;
+
+
     // Start is called before the first frame update
     void Start()
     {
+        Effect = FindObjectOfType<EffectManager>();
+        DoorEffect = FindObjectOfType<DoorEffectManager>();
         
     }
 
@@ -37,6 +43,8 @@ public class Room2PW : MonoBehaviour
             Debug.Log("금고 번호 맞춤");
             m_door.gameObject.transform.localEulerAngles = new Vector3(0f, -10f, 0f);
             m_right = true;
+            Effect.EffectPlay(3);
+            DoorEffect.Play();
 
         }
         else
@@ -44,6 +52,8 @@ public class Room2PW : MonoBehaviour
             Debug.Log("번호 초기화");
             m_count = 0;
             m_clicked = new string[6];//배열초기화
+            Effect.EffectPlay(4);
+
         }
     }
 
@@ -52,6 +62,8 @@ public class Room2PW : MonoBehaviour
         m_clicked[m_count] = "E";
         m_count++;
         Debug.Log("E 눌림");
+        Effect.EffectPlay(5);
+
     }
 
     public void ClickS()
@@ -59,6 +71,8 @@ public class Room2PW : MonoBehaviour
         m_clicked[m_count] = "S";
         m_count++;
         Debug.Log("S 눌림");
+        Effect.EffectPlay(5);
+
     }
 
     public void ClickC()
@@ -66,6 +80,8 @@ public class Room2PW : MonoBehaviour
         m_clicked[m_count] = "C";
         m_count++;
         Debug.Log("C 눌림");
+        Effect.EffectPlay(5);
+
     }
 
     public void ClickA()
@@ -73,6 +89,8 @@ public class Room2PW : MonoBehaviour
         m_clicked[m_count] = "A";
         m_count++;
         Debug.Log("A 눌림");
+        Effect.EffectPlay(5);
+
     }
 
     public void ClickP()
@@ -80,6 +98,8 @@ public class Room2PW : MonoBehaviour
         m_clicked[m_count] = "P";
         m_count++;
         Debug.Log("P 눌림");
+        Effect.EffectPlay(5);
+
     }
 
     public void ClickEnter()
@@ -95,6 +115,8 @@ public class Room2PW : MonoBehaviour
             Debug.Log("번호 초기화");
             m_count = 0;
             m_clicked = new string[6];//배열초기화
+            Effect.EffectPlay(4);
+            
         }
     }
 
