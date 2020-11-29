@@ -20,7 +20,20 @@ public class creditCtrl : MonoBehaviour
     void Update()
     {
         m_rectTransform.position = new Vector3(0, m_rectTransform.position.y+ m_Speed, m_rectTransform.position.z);
+
+        if(m_rectTransform.position.y + m_Speed > 150f)
+        {
+            //좀비소리 넣기 2초 정도
+            StartCoroutine(twosec());
+       }
+        Debug.Log(m_rectTransform.position.y + m_Speed);
     }
 
-    //y 값이 588일때 좀비 sound 넣기
+    IEnumerator twosec()
+    {
+        WaitForSeconds two = new WaitForSeconds(2f);
+        yield return two;
+        UnityEditor.EditorApplication.isPlaying = false;
+
+    }
 }
