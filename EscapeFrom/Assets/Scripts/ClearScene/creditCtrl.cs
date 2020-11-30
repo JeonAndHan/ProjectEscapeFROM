@@ -11,6 +11,7 @@ public class creditCtrl : MonoBehaviour
     private float m_Speed;
     SoundManager Sound;
     EffectManager Effect;
+    private bool effect_on = false;
 
     // Start is called before the first frame update
     void Start()
@@ -27,17 +28,33 @@ public class creditCtrl : MonoBehaviour
         m_rectTransform.position = new Vector3(0, m_rectTransform.position.y+ m_Speed, m_rectTransform.position.z);
 
         if(m_rectTransform.position.y + m_Speed > 150f)
-        {
-            Effect.EffectPlay(1);//좀비소리 넣기 2초 정도
-            StartCoroutine(twosec());
+        {          
+            if(!effect_on){
+                Sound.Stop();
+                effect_on=true;
+                StartCoroutine(threesec());
+            }
+            
        }
-        Debug.Log(m_rectTransform.position.y + m_Speed);
+        //Debug.Log(m_rectTransform.position.y + m_Speed);
     }
 
-    IEnumerator twosec()
+    IEnumerator foursec()
     {
-        WaitForSeconds two = new WaitForSeconds(2f);
-        yield return two;
-        UnityEditor.EditorApplication.isPlaying = false;
+        Effect.EffectPlay(9);
+        WaitForSeconds four = new WaitForSeconds(4f);
+        yield return four;
+        #if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+        #else
+            Application.Quit();
+        #endif
+    }
+    IEnumerator threesec()
+    {
+        WaitForSeconds three = new WaitForSeconds(3f);
+        yield return three;
+        StartCoroutine(foursec());
+        
     }
 }
