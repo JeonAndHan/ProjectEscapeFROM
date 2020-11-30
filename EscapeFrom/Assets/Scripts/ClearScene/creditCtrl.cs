@@ -44,7 +44,11 @@ public class creditCtrl : MonoBehaviour
         Effect.EffectPlay(9);
         WaitForSeconds four = new WaitForSeconds(4f);
         yield return four;
-        UnityEditor.EditorApplication.isPlaying = false;
+        #if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+        #else
+            Application.Quit();
+        #endif
     }
     IEnumerator threesec()
     {

@@ -29,6 +29,10 @@ public class ReloadScene : MonoBehaviour
     public void quit()
     {
         Debug.Log("quit 눌림");
-        UnityEditor.EditorApplication.isPlaying = false;
+        #if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+        #else
+            Application.Quit();
+        #endif
     }
 }
