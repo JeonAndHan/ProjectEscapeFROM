@@ -293,8 +293,8 @@ public class GameCtrl : MonoBehaviour
 
     IEnumerator gameover()
     {
-        WaitForSeconds Delay2sec = new WaitForSeconds(2f);
-        yield return Delay2sec;
+        WaitForSeconds Delay1sec = new WaitForSeconds(1f);
+        yield return Delay1sec;
 
         SceneManager.LoadScene("GameOver");
     }
