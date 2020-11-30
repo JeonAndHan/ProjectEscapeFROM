@@ -27,7 +27,7 @@ public class creditCtrl : MonoBehaviour
     {
         m_rectTransform.position = new Vector3(0, m_rectTransform.position.y+ m_Speed, m_rectTransform.position.z);
 
-        if(m_rectTransform.position.y + m_Speed > 150f)
+        if(m_rectTransform.position.y + m_Speed > 140f)
         {          
             if(!effect_on){
                 Sound.Stop();

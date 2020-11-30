@@ -64,6 +64,7 @@ public class GameCtrl : MonoBehaviour
 
     [Header("Explosion")]
     public GameObject m_explosion;
+    public bool m_explosion_true = false;
     
     [Header("Sound")]
     SoundManager Sound;
@@ -104,7 +105,7 @@ public class GameCtrl : MonoBehaviour
 
         if(m_pressR && !m_TimeAttack_UI.activeInHierarchy && m_Computer_Text.m_textTrigger)
         {
-            time = 300f; 
+            time = 600f; 
             m_TimeAttack_UI.gameObject.SetActive(true);
             Sound.Play();
         }
@@ -217,6 +218,7 @@ public class GameCtrl : MonoBehaviour
         {
             Debug.Log("타임종료");
             m_explosion.SetActive(true);
+            m_explosion_true = true;
             Sound.Stop();
             StartCoroutine(gameover());
         }

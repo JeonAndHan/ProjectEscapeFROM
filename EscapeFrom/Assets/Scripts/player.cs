@@ -27,6 +27,7 @@ public class player : MonoBehaviour
 
     private int m_JumpCount = 0;
     private bool m_isRun;
+    public bool m_is_Weapon_attack = false;
     private float m_weapon_Damage = 50f;
     private float m_hand_Damage = 20f;
 
@@ -94,6 +95,12 @@ public class player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (m_gameCtrl.m_explosion_true && !m_isDead)
+        {
+            m_Anim.SetTrigger("DIE");
+            m_isDead = true;
+        }
+
         if (!m_isDead)
         {
             if (!m_gameCtrl.m_pressR)
@@ -112,12 +119,13 @@ public class player : MonoBehaviour
                 {
                     m_Anim.SetBool("WEAPONATTACK", true);
                     m_Anim.SetBool("WALK", false);
+                    m_is_Weapon_attack = true;
 
                 }
                 else
                 {
                     m_Anim.SetBool("ATTACK", true);
-                    
+                    m_is_Weapon_attack = false;
                 }
 
             }

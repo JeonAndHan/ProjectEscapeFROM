@@ -16,7 +16,10 @@ public class playerAttackArea : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (!m_player.m_is_Weapon_attack)
+        {
+            this.gameObject.SetActive(false);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
