@@ -42,7 +42,7 @@ public class creditCtrl : MonoBehaviour
     IEnumerator foursec()
     {
         Effect.EffectPlay(9);
-        WaitForSeconds four = new WaitForSeconds(4f);
+        WaitForSeconds four = new WaitForSeconds(3f);
         yield return four;
         #if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;
