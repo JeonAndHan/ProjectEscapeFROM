@@ -39,22 +39,22 @@ public class creditCtrl : MonoBehaviour
         //Debug.Log(m_rectTransform.position.y + m_Speed);
     }
 
-    IEnumerator foursec()
+    IEnumerator threesec()
     {
         Effect.EffectPlay(9);
-        WaitForSeconds four = new WaitForSeconds(3f);
-        yield return four;
+        WaitForSeconds three = new WaitForSeconds(3f);
+        yield return three;
         #if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;
         #else
             Application.Quit();
         #endif
     }
-    IEnumerator threesec()
+    IEnumerator twosec()
     {
-        WaitForSeconds three = new WaitForSeconds(3f);
-        yield return three;
-        StartCoroutine(foursec());
+        WaitForSeconds two = new WaitForSeconds(2f);
+        yield return two;
+        StartCoroutine(threesec());
         
     }
 }
