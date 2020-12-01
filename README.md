@@ -19,9 +19,13 @@
 - play영상 : https://youtu.be/KCqOusVdZV4
 - 차용한 부분
 Monster FSM  https://www.youtube.com/watch?v=mHYroWpIIP0&t=118s
+
 Mouse Rotation  https://wergia.tistory.com/230
+
 Assets  Mixamo, unity asset store, sketchfab
 
-🔗contact
+### 🔗contact
+
 jiyeon53885@gmail.com
+
 yuco109@gmail.com
