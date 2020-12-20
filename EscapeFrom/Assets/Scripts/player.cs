@@ -35,7 +35,7 @@ public class player : MonoBehaviour
     public Camera m_camera;
     public Transform m_cameraArm;
     public GameCtrl m_gameCtrl;
-    private float m_lookSensitivity = 3f;
+    private float m_lookSensitivity = 2f;
     private float m_cameraRotationLimit = 10f;
     private float m_currentCameraRotationX;
 
@@ -105,12 +105,10 @@ public class player : MonoBehaviour
         {
             if (!m_gameCtrl.m_pressR)
             {
-                character_Rotation();
-                camera_Rotation();
                 Move();
+                camera_Rotation();
+                character_Rotation();
             }
-
-            //GameObject.FindWithTag("hpBar").GetComponent<HealthBar>.ShowHPbar(m_currentHP, m_maxHP);
 
             if (Input.GetMouseButton(0) && !m_gameCtrl.m_pressR)
             {
@@ -211,32 +209,45 @@ public class player : MonoBehaviour
         m_currentCameraRotationX -= cameraRotationX;
         m_currentCameraRotationX = Mathf.Clamp(m_currentCameraRotationX, -m_cameraRotationLimit, m_cameraRotationLimit);
 
-        m_camera.transform.localEulerAngles = new Vector3(m_currentCameraRotationX, 0, 0);
+        m_camera.transform.localEulerAngles = new Vector3(m_currentCameraRotationX, 0, 0);       
     }
 
     private void Move()
     {
-        Vector2 moveInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-        bool isMove = moveInput.magnitude != 0;
+
+        float moveDirX = Input.GetAxisRaw("Horizontal");
+        float moveDirZ = Input.GetAxisRaw("Vertical");
+
+        Vector3 moveHorizontal = transform.right * moveDirX;
+        Vector3 moveVertical = transform.forward * -moveDirZ;
+        Vector3 m_velocity = (moveHorizontal - moveVertical) * m_speed;
+
+        bool isMove = false;
+
+        if(moveDirX != 0 || moveDirZ!=0)
+        {
+            isMove = true;
+        }
+        else
+        {
+            isMove = false;
+        }
+
         m_Anim.SetBool("WALK", isMove);
 
         if (isMove)
         {
-            Vector3 lookForward = new Vector3(m_cameraArm.forward.x, 0f, m_cameraArm.forward.z).normalized;
-            Vector3 lookRight = new Vector3(m_cameraArm.right.x, 0f, m_cameraArm.right.z).normalized;
-            Vector3 moveDir = lookForward * moveInput.y + lookRight * moveInput.x;
-
-            this.transform.forward = lookForward;
+            m_rigidbody.MovePosition(transform.position + m_velocity * Time.deltaTime);
 
             if (!m_isRun)
             {
                 m_Anim.SetBool("RUN", false);
-                transform.position += moveDir * Time.deltaTime * m_speed;
+                m_rigidbody.MovePosition(transform.position + m_velocity * Time.deltaTime);
             }
             else
             {
                 m_Anim.SetBool("RUN", true);
-                transform.position += moveDir * Time.deltaTime * m_runSpeed;
+                m_rigidbody.MovePosition(transform.position + (moveHorizontal - moveVertical) * m_runSpeed * Time.deltaTime);
             }
         }
     }
