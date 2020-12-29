@@ -27,6 +27,6 @@ Assets  Mixamo, unity asset store, sketchfab
 
 ### 🔗contact
 
-jiyeon53885@gmail.com
+hanjiyeon@kakao.com
 
 yuco109@gmail.com
