@@ -10,6 +10,8 @@ public class UICtrl : MonoBehaviour
 
     [SerializeField]
     private HealthBar m_playerHpBar;
+    [SerializeField]
+    private GameObject m_Inventory;
     public Button m_help_bth;
     public Button m_close_btn;
     public GameObject m_manipulation_UI;
@@ -49,6 +51,18 @@ public class UICtrl : MonoBehaviour
         else
         {
             m_manipulation_UI.SetActive(false);
+        }
+
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            if (m_Inventory.activeInHierarchy)
+            {
+                m_Inventory.SetActive(false);
+            }
+            else
+            {
+                m_Inventory.SetActive(true);
+            }
         }
     }
 
